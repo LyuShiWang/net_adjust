@@ -21,7 +21,7 @@ import java.awt.event.KeyEvent;
 
 public class connect {
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws Exception {
 		String name="";
 		
 		// 1.创建一个服务器端Socket，即ServerSocket，指定绑定的端口，并监听此端口

@@ -1,24 +1,30 @@
 package net_adjust;
 
+import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
-import java.io.IOException;
 
-import org.xvolks.jnative.exceptions.NativeException;
-import org.xvolks.jnative.misc.basicStructures.HWND;
-import org.xvolks.jnative.misc.basicStructures.LPARAM;
-import org.xvolks.jnative.misc.basicStructures.UINT;
-import org.xvolks.jnative.misc.basicStructures.WPARAM;
-import org.xvolks.jnative.util.User32;
+import com.sun.jna.platform.win32.User32;
+import com.sun.jna.platform.win32.WinDef.HWND;
 
-public class MKEvent {
-	private Robot robot;
+public class auto_test {
 
-	public MKEvent(Robot robot1) {
-		robot = robot1;
-	}
-
-	public void open_in2(String name) throws Exception {
+	  
+	 
+	public static void main(String[] args) throws AWTException {
+		// TODO Auto-generated method stub
+		Runtime rn = Runtime.getRuntime();
+		Process proc1;
+		try {
+			proc1 = rn.exec("C:\\科傻平差软件\\Cosawin.exe");
+			// proc2 = rn.exec("C:\\AutoClick.exe");
+		} catch (Exception e) {
+			System.out.println("Error exec!");
+		}
+		
+		Robot robot=new Robot();
+        robot.setAutoDelay(100);//设置Robot产生一个动作后的休眠时间,否则执行过快
+		
 		robot.keyPress(KeyEvent.VK_CONTROL);
 		robot.keyPress(KeyEvent.VK_O);
 		robot.keyRelease(KeyEvent.VK_CONTROL);
@@ -37,12 +43,12 @@ public class MKEvent {
 		robot.keyPress(KeyEvent.VK_BACK_SLASH);
 		robot.keyRelease(KeyEvent.VK_BACK_SLASH);// \
 
-		input_ProjectName(name);
+		input_ProjectName(robot,"trytry");
 
 		robot.keyPress(KeyEvent.VK_BACK_SLASH);
 		robot.keyRelease(KeyEvent.VK_BACK_SLASH);// \
 
-		input_ProjectName(name);
+		input_ProjectName(robot,"trytry");
 
 		robot.keyPress(KeyEvent.VK_PERIOD);
 		robot.keyRelease(KeyEvent.VK_PERIOD);// .
@@ -55,24 +61,24 @@ public class MKEvent {
 
 		robot.keyPress(KeyEvent.VK_ENTER);
 		robot.keyRelease(KeyEvent.VK_ENTER);// 回车，此时.in2文件已经打开了
-
+		
 		
 	}
-
-	public void input_ProjectName(String name) {
+	
+	public static void input_ProjectName(Robot robot,String name) {
 		char[] alphas = name.toCharArray();
 		for (char item : alphas) {
 			int value = (int) item;
 
 			if (value > 96 && value < 123) {// 是小写字母的话
 				value = value - 32;
-				System.out.println("字符为：" + item + "。其ACSII码为：" + value);
+				System.out.println("字符为：" + item + "。其KeyCode码为：" + value);
 				robot.keyPress(value);
 				robot.keyRelease(value);// 输入工程名
 				continue;
 			}
 			if (value > 64 && value < 91) { // 是大写字母的话
-				System.out.println("字符为：" + item + "。其ACSII码为：" + value);
+				System.out.println("字符为：" + item + "。其KeyCode码为：" + value);
 				robot.keyPress(KeyEvent.VK_SHIFT);
 				robot.keyPress(value);
 				robot.keyRelease(value);// 输入工程名
@@ -80,7 +86,7 @@ public class MKEvent {
 				continue;
 			}
 			if (value > 47 && value < 58) { // 是数字的话
-				System.out.println("字符为：" + item + "。其ACSII码为：" + value);
+				System.out.println("字符为：" + item + "。其KeyCode码为：" + value);
 				robot.keyPress(value);
 				robot.keyRelease(value);
 				continue;
@@ -88,4 +94,5 @@ public class MKEvent {
 			System.out.println("工程名输入出错！工程名仅能由大小写字母和数字组成");
 		}
 	}
+
 }
